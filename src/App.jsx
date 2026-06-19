@@ -26,11 +26,18 @@ function App() {
 
 
   const [ocupaciones, setOcupaciones] = useState(() => {
-    const datos = localStorage.getItem("ocupaciones");
-    return datos ? JSON.parse(datos) : {};
-  });
+  const datos = localStorage.getItem("ocupaciones");
+  return datos ? JSON.parse(datos) : {};
+});
 
-  useEffect(() => {
+useEffect(() => {
+  localStorage.setItem(
+    "ocupaciones",
+    JSON.stringify(ocupaciones)
+  );
+}, [ocupaciones]);
+
+useEffect(() => {
 
   const cargarHabitaciones = async () => {
 
@@ -42,28 +49,8 @@ function App() {
 
       const datos = await respuesta.json();
 
-const nuevasOcupaciones = {};
+      console.log(datos);
 
-datos.forEach((fila) => {
-
-  if (fila.estado === "Ocupada") {
-
-    nuevasOcupaciones[fila.habitacion] = {
-      nombreHuesped: fila.huesped || "",
-      telefono: fila.telefono || "",
-      empresa: fila.empresa || "",
-      cantidadHuespedes: fila.personas || "",
-      fechaEntrada: fila.entrada || "",
-      fechaSalida: fila.salida || "",
-    };
-
-  }
-
-});
-
-setOcupaciones(nuevasOcupaciones);
-
-console.log(nuevasOcupaciones);
     } catch (error) {
 
       console.log(error);
