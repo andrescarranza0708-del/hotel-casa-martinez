@@ -42,28 +42,8 @@ function App() {
 
       const datos = await respuesta.json();
 
-const nuevasOcupaciones = {};
+      console.log(datos);
 
-datos.forEach((fila) => {
-
-  if (fila.estado === "Ocupada") {
-
-    nuevasOcupaciones[fila.habitacion] = {
-      nombreHuesped: fila.huesped || "",
-      telefono: fila.telefono || "",
-      empresa: fila.empresa || "",
-      cantidadHuespedes: fila.personas || "",
-      fechaEntrada: fila.entrada || "",
-      fechaSalida: fila.salida || "",
-    };
-
-  }
-
-});
-
-setOcupaciones(nuevasOcupaciones);
-
-console.log(nuevasOcupaciones);
     } catch (error) {
 
       console.log(error);
